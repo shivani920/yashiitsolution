@@ -65,10 +65,10 @@ const Pages = () => {
             <a href="/contact">Contact Us</a>
           </button>
         </nav>
-        <div className="menu-icon" onClick={toggleMenu}>
-          <div className="bar"></div>
-          <div className="bar"></div>
-          <div className="bar"></div>
+        <div className="menu-icon" onClick={toggleMenu} aria-expanded={menuOpen} aria-label="Toggle navigation menu">
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "open" : ""}`}></div>
         </div>
       </header>
 

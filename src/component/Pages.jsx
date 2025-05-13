@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./Pages.css"
 import logo from "../assets/logo.png"
 
@@ -17,7 +17,7 @@ import Vector1 from "../assets/Vector1.png"
 import Vector from "../assets/Vector.png"
 import webprograming from "../assets/web-programming 1.png"
 import verified from "../assets/verified.png"
-import linkselect from "../assets/Link-Select--Streamline-Atlas.png" 
+import linkselect from "../assets/Link-Select--Streamline-Atlas.png"
 import checkmarkIcon from "../assets/Checkmark-Filled--Streamline-Carbon.png"
 import wavePattern from "../assets/Rectangle 2.png"
 import dotPattern from "../assets/Frame 202.png"
@@ -27,20 +27,44 @@ import analyticsImage from "../assets/Data-report 1.png"
 import Vector3 from "../assets/Vector3.png"
 import googleIcon from "../assets/Google.png"
 
-
-
-
-
 const Pages = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuOpen && !event.target.closest(".nav-container") && !event.target.closest(".menu-icon")) {
+        setMenuOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [menuOpen])
+
+  // Close menu when ESC key is pressed
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === "Escape" && menuOpen) {
+        setMenuOpen(false)
+      }
+    }
+
+    document.addEventListener("keydown", handleEscKey)
+    return () => {
+      document.removeEventListener("keydown", handleEscKey)
+    }
+  }, [menuOpen])
+
   const toggleMenu = () => {
-    setMenuOpen((prev) => !prev)
+    setMenuOpen(!menuOpen)
   }
 
   return (
     <div className="container-fluid">
-      {/* Header */}
+     {/* Header */}
       <header className="header">
         <div className="logo-container">
           <img src={logo || "/placeholder.svg"} alt="Logo" className="logo-image" />
@@ -85,10 +109,11 @@ const Pages = () => {
             </p>
             <div className="cta-buttons">
               <button type="button" className="btn primary-btn">
-                Free Site Audit For Roofers <img src={message || "/placeholder.svg"} alt="arrow" className="arrow-icon" />
+                Free Site Audit For Roofers{" "}
+                <img src={message || "/placeholder.svg"} alt="arrow" className="arrow-icon" />
               </button>
               <button type="button" className="btn secondary-btn">
-              <img src={Frame61} alt="Frame61" className="Frame61-icon" />              Contact us
+                <img src={Frame61 || "/placeholder.svg"} alt="Frame61" className="Frame61-icon" /> Contact us
               </button>
             </div>
           </div>
@@ -101,9 +126,8 @@ const Pages = () => {
             </div>
           </div>
         </div>
-       
       </section>
- <img src={wavePattern || "/placeholder.svg"} alt="" className="wave-pattern" />
+      <img src={wavePattern || "/placeholder.svg"} alt="" className="wave-pattern" />
       {/* Understanding Section */}
       <section className="understanding-section">
         <div className="row">
@@ -113,7 +137,7 @@ const Pages = () => {
             </div>
           </div>
           <div className="col-md-1">
-          <img src={Vector1 || "/placeholder.svg"} alt="Icon" />
+            <img src={Vector1 || "/placeholder.svg"} alt="Icon" />
           </div>
           <div className="col-md-6">
             <div className="section-tag">We Understand You</div>
@@ -146,89 +170,94 @@ const Pages = () => {
           </div>
         </div>
         <div className="text-center">
-        <img src={star || "/placeholder.svg"} alt="" className="star-pattern" />
+          <img src={star || "/placeholder.svg"} alt="" className="star-pattern" />
         </div>
         <img src={dotPattern || "/placeholder.svg"} alt="" className="dot-pattern" />
-       
       </section>
 
       {/* Services Section */}
       <section className="services-section">
-  <div className="text-end">
-    <img
-      style={{ marginTop: "-100px" }}
-      src={dotPattern1 || "/placeholder.svg"}
-      alt=""
-      className="dot-pattern1"
-    />
-  </div>
+        <div className="text-end">
+          <img
+            style={{ marginTop: "-100px" }}
+            src={dotPattern1 || "/placeholder.svg"}
+            alt=""
+            className="dot-pattern1"
+          />
+        </div>
 
-  <div className="section-header text-center mb-5">
-    <div className="section-tag light">Our Services</div>
-    <h2>Roofing SEO that Actually Grows Your Business</h2>
-    <p>With SEO Roofer's proven methods, your roofing business won't just rank—it'll dominate:</p>
-  </div>
+        <div className="section-header text-center mb-5">
+          <div className="section-tag light">Our Services</div>
+          <h2>Roofing SEO that Actually Grows Your Business</h2>
+          <p>With SEO Roofer's proven methods, your roofing business won't just rank—it'll dominate:</p>
+        </div>
 
-  <div className="row">
-    {/* Card 1 */}
-    <div className="col-md-6 mb-4">
-      <div className="service-card d-flex">
-        <div className="card-icon">
-          <img src={Vector || "/placeholder.svg"} alt="Local SEO" />
-        </div>
-        <div className="card-content ps-3">
-          <h3>Local SEO for Roofers</h3>
-          <p>Ensure you appear prominently in local searches like "roof repair near me."</p>
-          <a href="#" className="read-more">Read More</a>
-        </div>
-      </div>
-    </div>
+        <div className="row">
+          {/* Card 1 */}
+          <div className="col-md-6 mb-4">
+            <div className="service-card d-flex">
+              <div className="card-icon">
+                <img src={Vector || "/placeholder.svg"} alt="Local SEO" />
+              </div>
+              <div className="card-content ps-3">
+                <h3>Local SEO for Roofers</h3>
+                <p>Ensure you appear prominently in local searches like "roof repair near me."</p>
+                <a href="#" className="read-more">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
 
-    {/* Card 2 */}
-    <div className="col-md-6 mb-4">
-      <div className="service-card d-flex">
-        <div className="card-icon">
-          <img src={webprograming || "/placeholder.svg"} alt="On-Page SEO" />
-        </div>
-        <div className="card-content ps-3">
-          <h3>On-Page SEO for Roofing</h3>
-          <p>Optimize your website to rank for valuable roofing keywords.</p>
-          <a href="#" className="read-more">Read More</a>
-        </div>
-      </div>
-    </div>
+          {/* Card 2 */}
+          <div className="col-md-6 mb-4">
+            <div className="service-card d-flex">
+              <div className="card-icon">
+                <img src={webprograming || "/placeholder.svg"} alt="On-Page SEO" />
+              </div>
+              <div className="card-content ps-3">
+                <h3>On-Page SEO for Roofing</h3>
+                <p>Optimize your website to rank for valuable roofing keywords.</p>
+                <a href="#" className="read-more">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
 
-    {/* Card 3 */}
-    <div className="col-md-6 mb-4">
-      <div className="service-card d-flex">
-        <div className="card-icon">
-          <img src={verified || "/placeholder.svg"} alt="Google Profile" />
-        </div>
-        <div className="card-content ps-3">
-          <h3>Google Business Profile Optimization</h3>
-          <p>Stand out with reviews and maps to attract more roofing leads.</p>
-          <a href="#" className="read-more">Read More</a>
-        </div>
-      </div>
-    </div>
+          {/* Card 3 */}
+          <div className="col-md-6 mb-4">
+            <div className="service-card d-flex">
+              <div className="card-icon">
+                <img src={verified || "/placeholder.svg"} alt="Google Profile" />
+              </div>
+              <div className="card-content ps-3">
+                <h3>Google Business Profile Optimization</h3>
+                <p>Stand out with reviews and maps to attract more roofing leads.</p>
+                <a href="#" className="read-more">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
 
-    {/* Card 4 */}
-    <div className="col-md-6 mb-4">
-      <div className="service-card d-flex">
-        <div className="card-icon">
-          <img src={linkselect || "/placeholder.svg"} alt="Link Building" />
+          {/* Card 4 */}
+          <div className="col-md-6 mb-4">
+            <div className="service-card d-flex">
+              <div className="card-icon">
+                <img src={linkselect || "/placeholder.svg"} alt="Link Building" />
+              </div>
+              <div className="card-content ps-3">
+                <h3>Roofing SEO Link Building</h3>
+                <p>Gain credibility and visibility by building authority backlinks.</p>
+                <a href="#" className="read-more">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="card-content ps-3">
-          <h3>Roofing SEO Link Building</h3>
-          <p>Gain credibility and visibility by building authority backlinks.</p>
-          <a href="#" className="read-more">Read More</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+      </section>
 
       {/* Why Choose Us Section */}
       <section className="why-choose-section">
@@ -260,9 +289,7 @@ const Pages = () => {
             </ul>
           </div>
           <div className="col-md-1">
-           
-              <img src={Vector3 || "/placeholder.svg"} alt="Analytics Dashboard" />
-           
+            <img src={Vector3 || "/placeholder.svg"} alt="Analytics Dashboard" />
           </div>
           <div className="col-md-5">
             <div className="analytics-image">
@@ -376,7 +403,7 @@ const Pages = () => {
               <a href="#" className="social-icon">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-             
+
               <a href="#" className="social-icon">
                 <i className="fab fa-youtube"></i>
               </a>
